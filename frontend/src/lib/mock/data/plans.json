@@ -1,0 +1,28 @@
+{
+  "plans": [
+    {
+      "code": "starter",
+      "name": "Khởi đầu",
+      "priceVndMonth": 0,
+      "limits": { "products": 30, "ordersMonth": 100, "staffSeats": 1 },
+      "features": { "drop": false, "preorder": false, "customDomain": false },
+      "txnFeePercent": 2.5
+    },
+    {
+      "code": "shop",
+      "name": "Cửa hàng",
+      "priceVndMonth": 490000,
+      "limits": { "products": 300, "ordersMonth": 2000, "staffSeats": 5 },
+      "features": { "drop": true, "preorder": true, "customDomain": false },
+      "txnFeePercent": 1.5
+    },
+    {
+      "code": "collector",
+      "name": "Nhà sưu tầm",
+      "priceVndMonth": 1490000,
+      "limits": { "products": 3000, "ordersMonth": 20000, "staffSeats": 20 },
+      "features": { "drop": true, "preorder": true, "customDomain": true },
+      "txnFeePercent": 0.9
+    }
+  ]
+}

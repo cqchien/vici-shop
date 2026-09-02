@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package order;
+
+// Contract placeholder — backend is scaffold-only.
+// The gRPC service definition, RPCs and messages for order-service are specified in:
+//   - docs/40-services/order-service.md  (§2 API — gRPC)
+//   - docs/20-architecture/04-service-contracts-conventions.md  (§2 gRPC conventions, §0 tenant metadata)
+// Define them here when implementing the service.

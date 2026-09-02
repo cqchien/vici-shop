@@ -1,0 +1,10 @@
+# Placeholder — backend is scaffold-only.
+#
+# Shared local infrastructure for the stack: PostgreSQL 16, Redis 7, Apache Kafka, and the
+# observability stack (OpenTelemetry Collector, Jaeger, Prometheus, Grafana, Loki).
+# See docs/20-architecture/02-tech-stack.md and docs/knowledge/11-observability-otel/.
+#
+# `init-databases.sql` (mounted into the Postgres container) creates the per-service databases
+# (database-per-service, ADR-001). Populate service definitions here when implementing.
+
+services: {}

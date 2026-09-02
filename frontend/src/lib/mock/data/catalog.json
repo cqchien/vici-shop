@@ -1,0 +1,287 @@
+{
+  "brands": [
+    { "id": "b_vicimay", "name": "VICI × MÂY", "slug": "vici-may" },
+    { "id": "b_lactroop", "name": "LẠC TROOP", "slug": "lac-troop" },
+    { "id": "b_52toys", "name": "52TOYS", "slug": "52toys" },
+    { "id": "b_toycity", "name": "TOYCITY", "slug": "toycity" }
+  ],
+  "series": [
+    {
+      "id": "s_maytroi",
+      "brandId": "b_vicimay",
+      "name": "MÂY TRÔI — \"Giấc Mơ Trưa\"",
+      "slug": "may-troi-giac-mo-trua",
+      "description": "Series blind box đầu tiên của studio MÂY (Hà Nội) — 6 nhân vật thường, 1 secret dạ quang. Sản xuất giới hạn 5.000 hộp, mỗi hộp có mã xác thực riêng.",
+      "figures": [
+        { "name": "Mây Sớm", "ratio": "1/6", "isSecret": false },
+        { "name": "Mây Hồng", "ratio": "1/6", "isSecret": false },
+        { "name": "Mây Mưa", "ratio": "1/6", "isSecret": false },
+        { "name": "Mây Nắng", "ratio": "1/6", "isSecret": false },
+        { "name": "Mây Bão", "ratio": "1/6", "isSecret": false },
+        { "name": "Mây Ngủ", "ratio": "1/6", "isSecret": false },
+        { "name": "Mây Đêm", "ratio": "1/72", "isSecret": true }
+      ]
+    },
+    {
+      "id": "s_lacmini",
+      "brandId": "b_lactroop",
+      "name": "LẠC TROOP Mini S2",
+      "slug": "lac-troop-mini-s2",
+      "description": "Bộ mini thế hệ 2 của LẠC TROOP — 8 nhân vật thường khám phá Sài Gòn, 1 secret Lạc Trăng tỉ lệ 1/96.",
+      "figures": [
+        { "name": "Lạc Phố", "ratio": "1/8", "isSecret": false },
+        { "name": "Lạc Chợ", "ratio": "1/8", "isSecret": false },
+        { "name": "Lạc Hẻm", "ratio": "1/8", "isSecret": false },
+        { "name": "Lạc Sông", "ratio": "1/8", "isSecret": false },
+        { "name": "Lạc Mưa", "ratio": "1/8", "isSecret": false },
+        { "name": "Lạc Nắng", "ratio": "1/8", "isSecret": false },
+        { "name": "Lạc Đêm", "ratio": "1/8", "isSecret": false },
+        { "name": "Lạc Nhà", "ratio": "1/8", "isSecret": false },
+        { "name": "Lạc Trăng", "ratio": "1/96", "isSecret": true }
+      ]
+    },
+    {
+      "id": "s_besong",
+      "brandId": "b_52toys",
+      "name": "BÉ SÓNG — \"Biển Đêm\"",
+      "slug": "be-song-bien-dem",
+      "description": "Series biển đêm của 52TOYS — 6 nhân vật thường, 1 secret Sóng Dạ Quang phát sáng trong tối.",
+      "figures": [
+        { "name": "Sóng Sớm", "ratio": "1/6", "isSecret": false },
+        { "name": "Sóng Bạc", "ratio": "1/6", "isSecret": false },
+        { "name": "Sóng Xanh", "ratio": "1/6", "isSecret": false },
+        { "name": "Sóng Ngầm", "ratio": "1/6", "isSecret": false },
+        { "name": "Sóng Vỗ", "ratio": "1/6", "isSecret": false },
+        { "name": "Sóng Yên", "ratio": "1/6", "isSecret": false },
+        { "name": "Sóng Dạ Quang", "ratio": "1/72", "isSecret": true }
+      ]
+    }
+  ],
+  "products": [
+    {
+      "id": "p_maytroi",
+      "name": "MÂY TRÔI — \"Giấc Mơ Trưa\"",
+      "slug": "may-troi-giac-mo-trua",
+      "description": "Blind box hợp tác studio MÂY — vinyl 9cm, 6 nhân vật thường + 1 secret dạ quang tỉ lệ 1/72. Nguyên set 6 hộp chắc chắn đủ 6 nhân vật thường. Mọi hộp được kiểm seal on-camera trước khi giao.",
+      "brandId": "b_vicimay",
+      "seriesId": "s_maytroi",
+      "type": "blind_box",
+      "status": "active",
+      "tags": ["blind box", "mây trôi", "hot"],
+      "variants": [
+        { "id": "v_may_single", "sku": "MAY-GMT-BOX", "name": "1 hộp ngẫu nhiên", "priceVnd": 280000, "kind": "single_box" },
+        { "id": "v_may_set", "sku": "MAY-GMT-SET", "name": "Nguyên set 6 hộp", "priceVnd": 1590000, "compareAtVnd": 1680000, "kind": "whole_set" }
+      ],
+      "ratingAvg": 4.9,
+      "ratingCount": 127,
+      "emoji": "☁️",
+      "createdDaysAgo": 24
+    },
+    {
+      "id": "p_mayglow",
+      "name": "MÂY TRÔI — Bản Glow",
+      "slug": "may-troi-ban-glow",
+      "description": "Phiên bản dạ quang của Giấc Mơ Trưa — sơn glow phủ toàn thân, 6 nhân vật thường + 1 secret. Số lượng giới hạn, không tái bản.",
+      "brandId": "b_vicimay",
+      "seriesId": "s_maytroi",
+      "type": "blind_box",
+      "status": "active",
+      "tags": ["blind box", "glow", "mây trôi"],
+      "variants": [
+        { "id": "v_glow_single", "sku": "MAY-GLW-BOX", "name": "1 hộp ngẫu nhiên", "priceVnd": 350000, "kind": "single_box" }
+      ],
+      "ratingAvg": 4.8,
+      "ratingCount": 31,
+      "emoji": "🌙",
+      "createdDaysAgo": 6
+    },
+    {
+      "id": "p_lacmini",
+      "name": "LẠC TROOP Mini S2",
+      "slug": "lac-troop-mini-s2",
+      "description": "Mini 6cm thế hệ 2 — 8 nhân vật lang thang Sài Gòn + secret Lạc Trăng 1/96. Nguyên set 8 hộp đủ 8 nhân vật thường.",
+      "brandId": "b_lactroop",
+      "seriesId": "s_lacmini",
+      "type": "blind_box",
+      "status": "active",
+      "tags": ["blind box", "mini"],
+      "variants": [
+        { "id": "v_lac_single", "sku": "LAC-M2-BOX", "name": "1 hộp ngẫu nhiên", "priceVnd": 320000, "kind": "single_box" },
+        { "id": "v_lac_set", "sku": "LAC-M2-SET", "name": "Nguyên set 8 hộp", "priceVnd": 2430000, "compareAtVnd": 2560000, "kind": "whole_set" }
+      ],
+      "ratingAvg": 4.7,
+      "ratingCount": 58,
+      "emoji": "🦊",
+      "createdDaysAgo": 40
+    },
+    {
+      "id": "p_besong",
+      "name": "BÉ SÓNG — \"Biển Đêm\"",
+      "slug": "be-song-bien-dem",
+      "description": "Blind box biển đêm của 52TOYS — vinyl 8cm, 6 nhân vật + secret dạ quang 1/72.",
+      "brandId": "b_52toys",
+      "seriesId": "s_besong",
+      "type": "blind_box",
+      "status": "active",
+      "tags": ["blind box", "52toys"],
+      "variants": [
+        { "id": "v_bs_single", "sku": "BS-BD-BOX", "name": "1 hộp ngẫu nhiên", "priceVnd": 260000, "kind": "single_box" }
+      ],
+      "ratingAvg": 4.6,
+      "ratingCount": 22,
+      "emoji": "🌊",
+      "createdDaysAgo": 33
+    },
+    {
+      "id": "p_ronggiay",
+      "name": "RỒNG GIẤY — Lì Xì",
+      "slug": "rong-giay-li-xi",
+      "description": "Figure lẻ vinyl 15cm — rồng giấy gấp origami ôm bao lì xì, bản thường không giới hạn.",
+      "brandId": "b_52toys",
+      "type": "regular",
+      "status": "active",
+      "tags": ["figure", "tết"],
+      "variants": [
+        { "id": "v_rg_std", "sku": "RG-LX-STD", "name": "Bản tiêu chuẩn", "priceVnd": 890000, "kind": "standard" }
+      ],
+      "ratingAvg": 4.4,
+      "ratingCount": 11,
+      "emoji": "🐉",
+      "createdDaysAgo": 94
+    },
+    {
+      "id": "p_meomap",
+      "name": "MÈO MẬP Đi Chợ",
+      "slug": "meo-map-di-cho",
+      "description": "Figure lẻ 12cm của TOYCITY — mèo mập xách làn đi chợ. Đang tạm hết, đăng ký waitlist để được báo khi restock.",
+      "brandId": "b_toycity",
+      "type": "regular",
+      "status": "active",
+      "tags": ["figure", "toycity"],
+      "variants": [
+        { "id": "v_mm_std", "sku": "MM-DC-STD", "name": "Bản tiêu chuẩn", "priceVnd": 450000, "kind": "standard" }
+      ],
+      "ratingAvg": 4.7,
+      "ratingCount": 21,
+      "emoji": "🐈",
+      "createdDaysAgo": 61
+    },
+    {
+      "id": "p_gauxl",
+      "name": "GẤU GỖ XL 400% — \"Rừng Ngập Mặn\"",
+      "slug": "gau-go-xl-400",
+      "description": "Figure XL 28cm — bản Rừng Ngập Mặn phối gỗ tự nhiên. Nhận đặt trước với cọc 30%, dự kiến hàng về tháng 9/2026. Hộp cứng 5 lớp, video kiểm seal trước khi gửi.",
+      "brandId": "b_lactroop",
+      "type": "preorder",
+      "status": "active",
+      "tags": ["pre-order", "xl", "400%"],
+      "variants": [
+        { "id": "v_gau_xl", "sku": "GAU-XL-400", "name": "Bản XL 400% (28cm)", "priceVnd": 3200000, "kind": "standard" }
+      ],
+      "ratingAvg": 0,
+      "ratingCount": 0,
+      "emoji": "🐻",
+      "createdDaysAgo": 7
+    },
+    {
+      "id": "p_cucvang",
+      "name": "CỤC VÀNG — Bản Tết 2026",
+      "slug": "cuc-vang-tet-2026",
+      "description": "Vinyl mạ vàng 14cm, đế khắc số thứ tự riêng. 300 bản duy nhất cho thị trường Việt Nam — không tái bản. Tối đa 2 bản/khách, số lượng chỉ trừ khi thanh toán xong.",
+      "brandId": "b_vicimay",
+      "type": "drop_exclusive",
+      "status": "active",
+      "tags": ["drop", "limited", "tết"],
+      "variants": [
+        { "id": "v_cucvang", "sku": "CV-TET-26", "name": "Bản giới hạn (đánh số)", "priceVnd": 1850000, "kind": "standard" }
+      ],
+      "ratingAvg": 0,
+      "ratingCount": 0,
+      "emoji": "🏆",
+      "createdDaysAgo": 10
+    },
+    {
+      "id": "p_lac5th",
+      "name": "LẠC TROOP × VICI — 5th Anniversary",
+      "slug": "lac-troop-vici-5th",
+      "description": "Bản kỷ niệm 5 năm hợp tác — 500 bản, mở bán đúng 20:00 thứ Bảy. Thành viên Gold và Collector được vào sớm 10 phút.",
+      "brandId": "b_lactroop",
+      "type": "drop_exclusive",
+      "status": "active",
+      "tags": ["drop", "limited", "anniversary"],
+      "variants": [
+        { "id": "v_lac5th", "sku": "LAC-5TH-26", "name": "Bản giới hạn (đánh số)", "priceVnd": 2400000, "kind": "standard" }
+      ],
+      "ratingAvg": 0,
+      "ratingCount": 0,
+      "emoji": "🎂",
+      "createdDaysAgo": 5
+    },
+    {
+      "id": "p_gaumini",
+      "name": "GẤU GỖ Mini — \"Mùa Nước Nổi\" (chưa mở bán)",
+      "slug": "gau-go-mini-mua-nuoc-noi",
+      "description": "Đang chuẩn bị nội dung cho đợt restock — chưa công bố.",
+      "brandId": "b_lactroop",
+      "type": "regular",
+      "status": "draft",
+      "tags": ["figure", "mini"],
+      "variants": [
+        { "id": "v_gaumini", "sku": "GAU-MN-STD", "name": "Bản tiêu chuẩn", "priceVnd": 690000, "kind": "standard" }
+      ],
+      "ratingAvg": 0,
+      "ratingCount": 0,
+      "emoji": "🧸",
+      "createdDaysAgo": 2
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rv_1",
+      "productId": "p_maytroi",
+      "customerId": "u_lan",
+      "stars": 5,
+      "content": "Hộp đầu tiên ra ngay nhân vật mình thích nhất. Sơn mịn, khớp chắc, không lệch mắt. Đóng gói chuẩn sưu tầm.",
+      "status": "visible",
+      "createdDaysAgo": 8,
+      "pulled": "RA MÂY MƯA"
+    },
+    {
+      "id": "rv_2",
+      "productId": "p_maytroi",
+      "customerId": "u_bao",
+      "stars": 5,
+      "content": "Mua 3 hộp thử mà trúng Mây Đêm. Shop kiểm seal on-cam từng hộp nên hoàn toàn yên tâm về nguồn gốc.",
+      "status": "visible",
+      "createdDaysAgo": 12,
+      "pulled": "RA SECRET 1/72"
+    },
+    {
+      "id": "rv_3",
+      "productId": "p_maytroi",
+      "customerId": "u_minh",
+      "stars": 4,
+      "content": "Mua nguyên set, đủ 6 nhân vật thường như cam kết. Trừ 1 sao vì hộp vận chuyển hơi lớn so với kệ trưng bày.",
+      "status": "visible",
+      "createdDaysAgo": 19
+    },
+    {
+      "id": "rv_4",
+      "productId": "p_ronggiay",
+      "customerId": "u_minh",
+      "stars": 5,
+      "content": "Chi tiết gấp giấy làm rất tới, đứng kệ nhìn sang. Shop gói double box cẩn thận.",
+      "status": "visible",
+      "createdDaysAgo": 20
+    },
+    {
+      "id": "rv_5",
+      "productId": "p_lacmini",
+      "customerId": "u_lan",
+      "stars": 4,
+      "content": "Mini nhưng sơn kỹ, khớp tay xoay được. Giao nhanh, shipper gọi hơi trễ nên trừ 1 sao.",
+      "status": "visible",
+      "createdDaysAgo": 5
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "users": [
+    {
+      "id": "u_ops",
+      "email": "ngan@vici.shop",
+      "name": "Ngân (Platform Operator)",
+      "phone": "0900000000",
+      "role": "platform_admin",
+      "tier": "standard",
+      "points": 0,
+      "spent12m": 0,
+      "addresses": [],
+      "locked": false,
+      "createdDaysAgo": 500
+    },
+    {
+      "id": "u_admin",
+      "email": "vy@vici.shop",
+      "name": "Vy (Chủ shop)",
+      "phone": "0900000001",
+      "role": "admin",
+      "tier": "standard",
+      "points": 0,
+      "spent12m": 0,
+      "addresses": [],
+      "locked": false,
+      "createdDaysAgo": 400
+    },
+    {
+      "id": "u_staff",
+      "email": "tu@vici.shop",
+      "name": "Tú (Vận hành)",
+      "phone": "0900000002",
+      "role": "staff",
+      "tier": "standard",
+      "points": 0,
+      "spent12m": 0,
+      "addresses": [],
+      "locked": false,
+      "createdDaysAgo": 200
+    },
+    {
+      "id": "u_minh",
+      "email": "minhanh.collects@example.com",
+      "name": "Minh Anh",
+      "phone": "0903555214",
+      "role": "customer",
+      "tier": "gold",
+      "points": 8412,
+      "spent12m": 17850000,
+      "addresses": [
+        {
+          "id": "addr_1",
+          "recipient": "Minh Anh",
+          "phone": "0903555214",
+          "province": "TP. Hồ Chí Minh",
+          "district": "Quận 1",
+          "ward": "Phường Bến Nghé",
+          "street": "12 Nguyễn Huệ",
+          "isDefault": true
+        },
+        {
+          "id": "addr_1b",
+          "recipient": "Minh Anh (VP)",
+          "phone": "0903555214",
+          "province": "TP. Hồ Chí Minh",
+          "district": "Quận 1",
+          "ward": "Phường Bến Nghé",
+          "street": "88 Đồng Khởi",
+          "isDefault": false
+        }
+      ],
+      "locked": false,
+      "createdDaysAgo": 300
+    },
+    {
+      "id": "u_bao",
+      "email": "quocbao.toys@example.com",
+      "name": "Quốc Bảo",
+      "phone": "0912008833",
+      "role": "customer",
+      "tier": "collector",
+      "points": 15230,
+      "spent12m": 41200000,
+      "addresses": [
+        {
+          "id": "addr_2",
+          "recipient": "Quốc Bảo",
+          "phone": "0912008833",
+          "province": "TP. Hồ Chí Minh",
+          "district": "Quận 7",
+          "ward": "Phường Tân Phong",
+          "street": "15 Nguyễn Lương Bằng",
+          "isDefault": true
+        }
+      ],
+      "locked": false,
+      "createdDaysAgo": 520
+    },
+    {
+      "id": "u_lan",
+      "email": "halinh.deskpop@example.com",
+      "name": "Hà Linh",
+      "phone": "0987654321",
+      "role": "customer",
+      "tier": "silver",
+      "points": 320,
+      "spent12m": 6930000,
+      "addresses": [
+        {
+          "id": "addr_3",
+          "recipient": "Hà Linh",
+          "phone": "0987654321",
+          "province": "Đà Nẵng",
+          "district": "Quận Hải Châu",
+          "ward": "Phường Thạch Thang",
+          "street": "5 Bạch Đằng",
+          "isDefault": true
+        }
+      ],
+      "locked": false,
+      "createdDaysAgo": 90
+    },
+    {
+      "id": "u_tram",
+      "email": "ngoctram@example.com",
+      "name": "Ngọc Trâm",
+      "phone": "0938551200",
+      "role": "customer",
+      "tier": "standard",
+      "points": 80,
+      "spent12m": 2140000,
+      "addresses": [
+        {
+          "id": "addr_4",
+          "recipient": "Ngọc Trâm",
+          "phone": "0938551200",
+          "province": "Hà Nội",
+          "district": "Quận Hoàn Kiếm",
+          "ward": "Phường Hàng Trống",
+          "street": "5 Nhà Thờ",
+          "isDefault": true
+        }
+      ],
+      "locked": false,
+      "createdDaysAgo": 45
+    }
+  ]
+}

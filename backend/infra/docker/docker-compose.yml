@@ -1,0 +1,13 @@
+# Placeholder — backend is scaffold-only.
+#
+# The full local stack (13 services + Kong + Postgres/Redis/Kafka + observability) is described
+# in:
+#   - docs/40-services/README.md            (service list, REST 30xx / gRPC 500xx port map)
+#   - docs/20-architecture/02-tech-stack.md
+#   - docs/00-overview/03-roadmap.md         (build order P0 -> P5)
+#   - docs/20-architecture/adrs/ADR-007-multi-tenancy-pooled-rls.md  (per-service DB, non-BYPASSRLS app role)
+#
+# Add service definitions here when implementing. `include: docker-compose.infra.yml` for the
+# shared infrastructure (Postgres, Redis, Kafka, observability).
+
+services: {}

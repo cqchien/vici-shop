@@ -1,0 +1,323 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — theo DESIGN.md (Claude Design "Vici Shop v3", re-base lên
+ * VICI Home design system: neutral ấm + pastel hồng/mint/lavender).
+ * Token là CSS variable đổi theo html[data-theme]; Tailwind ánh xạ qua @theme inline
+ * nên các class như bg-card / text-tx2 / border-line tự đổi màu ở dark mode.
+ */
+
+:root {
+  --bg: #fbfaf9; /* neutral-50 — nền ấm, không trắng tinh */
+  --card: #ffffff;
+  --card2: #f5f3f1; /* neutral-100 */
+  --line: #eae6e2; /* neutral-200 */
+  --line2: #d8d2cc; /* neutral-300 */
+  --tx: #201b17; /* neutral-900 */
+  --tx2: #6e655f; /* neutral-600 */
+  --tx3: #918780; /* neutral-500 */
+  --pri: #fa6fa0; /* pink-500 */
+  --pri-soft: #fff5f8; /* pink-50 */
+  --gold: #c98a1e;
+  --gold-soft: #fdedd3; /* warning-100 */
+  --mint: #4eb98d; /* mint-500 */
+  --mint-soft: #f1fbf6; /* mint-50 */
+  --sky: #9270dc; /* lavender-500 — pre-order chuyển sang lavender */
+  --sky-soft: #f8f6fe; /* lavender-50 */
+  --drop: #ef6f6f; /* danger-500 */
+  --drop-soft: #fbe2e2; /* danger-100 */
+  --viol: #7856c0; /* lavender-600 */
+  --viol-soft: #f8f6fe; /* lavender-50 */
+  --ink: #201b17; /* neutral-900 */
+  /* Shadow ấm (nâu nhạt), không đen thuần */
+  --sh-soft: 0 1px 2px rgba(111, 79, 62, 0.06), 0 4px 12px rgba(111, 79, 62, 0.08);
+  --sh-lift: 0 4px 12px rgba(111, 79, 62, 0.08), 0 12px 32px rgba(111, 79, 62, 0.12);
+}
+
+html[data-theme="dark"] {
+  --bg: #121110;
+  --card: #1b1a18;
+  --card2: #232220;
+  --line: #2a2926;
+  --line2: #3b3934;
+  --tx: #f1efea;
+  --tx2: #aba79d;
+  --tx3: #787468;
+  --pri: #ff8fb8; /* pink-400 */
+  --pri-soft: #3a2430;
+  --gold: #e8a33d;
+  --gold-soft: #332b18;
+  --mint: #74cfa9; /* mint-400 */
+  --mint-soft: #18291f;
+  --sky: #ac8eea; /* lavender-400 */
+  --sky-soft: #1b2536;
+  --drop: #f08a8a;
+  --drop-soft: #361d16;
+  --viol: #c6b0f3; /* lavender-300 */
+  --viol-soft: #241e38;
+  --ink: #f1efea;
+  --sh-soft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.25);
+  --sh-lift: 0 2px 6px rgba(0, 0, 0, 0.35), 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-card2: var(--card2);
+  --color-line: var(--line);
+  --color-line2: var(--line2);
+  --color-tx: var(--tx);
+  --color-tx2: var(--tx2);
+  --color-tx3: var(--tx3);
+  --color-pri: var(--pri);
+  --color-pri-soft: var(--pri-soft);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-mint: var(--mint);
+  --color-mint-soft: var(--mint-soft);
+  --color-sky: var(--sky);
+  --color-sky-soft: var(--sky-soft);
+  --color-drop: var(--drop);
+  --color-drop-soft: var(--drop-soft);
+  --color-viol: var(--viol);
+  --color-viol-soft: var(--viol-soft);
+  --color-ink: var(--ink);
+
+  --font-sans: var(--font-be-vietnam), system-ui, sans-serif;
+  --font-display: var(--font-be-vietnam), system-ui, sans-serif;
+  --font-data: var(--font-inter), var(--font-be-vietnam), system-ui, sans-serif;
+
+  --shadow-soft: var(--sh-soft);
+  --shadow-lift: var(--sh-lift);
+
+  --animate-pop-in: pop-in 0.4s ease;
+  --animate-pulse-dot: pulse-dot 1.4s infinite;
+  --animate-badge-pop: badge-pop 0.35s ease;
+  --animate-shake-box: shake-box 0.5s ease-in-out infinite;
+  --animate-sheet-up: sheet-up 0.25s ease;
+  --animate-float-y: float-y 4.5s ease-in-out infinite;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes badge-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes stripe-move {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 28px 0;
+  }
+}
+@keyframes shake-box {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(-6deg);
+  }
+  30% {
+    transform: rotate(5deg);
+  }
+  45% {
+    transform: rotate(-4deg);
+  }
+  60% {
+    transform: rotate(3deg);
+  }
+  80% {
+    transform: rotate(-1deg);
+  }
+}
+@keyframes confetti {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) rotate(240deg);
+  }
+}
+@keyframes sheen {
+  0% {
+    transform: translateX(-120%) rotate(18deg);
+  }
+  100% {
+    transform: translateX(240%) rotate(18deg);
+  }
+}
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font-family: var(--font-be-vietnam), system-ui, sans-serif;
+  transition: background 0.3s;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-be-vietnam), system-ui, sans-serif;
+}
+
+/* Font data (Inter) luôn canh số dạng bảng — giá, KPI, mã đơn thẳng cột. */
+.font-data {
+  font-variant-numeric: tabular-nums;
+}
+
+button {
+  transition:
+    transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.16s,
+    opacity 0.16s,
+    background 0.16s,
+    border-color 0.16s,
+    color 0.16s;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--tx3);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px var(--pri-soft);
+}
+
+/* Icon Material Symbols — dùng qua component <Icon />
+   @layer base để utility như `hidden`/`sm:hidden` luôn thắng được `display`
+   ở đây (nếu không layer, rule "trần" này thắng mọi utility theo cascade layers). */
+@layer base {
+  .msr {
+    font-family: "Material Symbols Rounded";
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-variation-settings:
+      "opsz" 24,
+      "wght" 400,
+      "GRAD" 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  .msr-fill {
+    font-variation-settings:
+      "FILL" 1,
+      "opsz" 24,
+      "wght" 400;
+  }
+}
+
+/* Số dạng bảng cho giá / thống kê */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Nền sọc chéo cho ảnh placeholder (PlaceholderArt) */
+.stripe-art {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--card2),
+    var(--card2) 10px,
+    var(--line) 10px,
+    var(--line) 11px
+  );
+}
+.stripe-art-viol {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--card2),
+    var(--card2) 10px,
+    var(--viol-soft) 10px,
+    var(--viol-soft) 11px
+  );
+}
+
+/* Progress sọc chéo chạy cho drop đang mở bán */
+.stripe-live {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--pri),
+    var(--pri) 10px,
+    var(--drop) 10px,
+    var(--drop) 20px
+  );
+  background-size: 28px 28px;
+  animation: stripe-move 1.2s linear infinite;
+}
+
+/* Vệt sáng quét qua (thẻ Gold, ô secret) — container cần relative + overflow-hidden */
+.sheen-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 220%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.14),
+    transparent
+  );
+  animation: sheen 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Mảnh confetti khi reveal blind box */
+.confetti-bit {
+  position: absolute;
+  animation: confetti 1.2s ease-out forwards;
+}

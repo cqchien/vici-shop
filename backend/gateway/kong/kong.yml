@@ -1,0 +1,18 @@
+_format_version: "3.0"
+_transform: true
+
+# Placeholder — backend is scaffold-only.
+#
+# The public route map, plugins (JWT verify, rate limiting, CORS, request-id) and tenant
+# resolution (Host / JWT `tid` claim -> X-Tenant-Id) are specified in:
+#   - docs/20-architecture/adrs/ADR-005-kong-api-gateway.md
+#   - docs/20-architecture/adrs/ADR-009-tenant-context-propagation.md
+#   - docs/20-architecture/04-service-contracts-conventions.md  (§0 tenant context, §1 REST)
+#   - the REST table (Auth column) of each spec in docs/40-services/
+#   - docs/knowledge/09-api-gateway-kong/
+# ADR-010 proposes replacing Kong with AWS API Gateway + Lambda authorizer for the serverless
+# target; see docs/20-architecture/06-serverless-aws.md.
+#
+# Populate `services:` / `routes:` / `plugins:` when implementing the gateway.
+
+services: []

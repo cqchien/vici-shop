@@ -1,0 +1,7 @@
+{
+  "type": "record",
+  "name": "Placeholder",
+  "namespace": "com.vicishop.events",
+  "doc": "Placeholder — backend is scaffold-only. Real schema for topic 'product-updated' is specified in the Events section of the owning service spec (docs/40-services/) and docs/20-architecture/04-service-contracts-conventions.md §3. Define fields when implementing.",
+  "fields": []
+}

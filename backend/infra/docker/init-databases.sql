@@ -1,0 +1,12 @@
+-- Placeholder — backend is scaffold-only.
+--
+-- One database per service (database-per-service, ADR-001): tenant_db, billing_db, auth_db,
+-- user_db, product_db, inventory_db, order_db, payment_db, shipping_db, promotion_db,
+-- finance_db, notification_db, cart_db.
+--
+-- Multi-tenancy (ADR-007): business DBs are pooled — every table carries tenant_id + Row-Level
+-- Security. Each service's first migration adds a non-BYPASSRLS app role + RLS policies keyed on
+-- current_setting('app.tenant_id'). tenant_db / billing_db are platform plane (cross-tenant),
+-- NOT under RLS. Role separation is set up per-service in migrations, not here.
+--
+-- Populate the CREATE DATABASE / GRANT statements when implementing the local stack.

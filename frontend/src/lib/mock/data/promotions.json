@@ -1,0 +1,106 @@
+{
+  "vouchers": [
+    {
+      "id": "vc_1",
+      "code": "THANG7-10",
+      "kind": "percent",
+      "value": 10,
+      "minOrderVnd": 500000,
+      "totalUses": 2000,
+      "perCustomer": 1,
+      "usedCount": 1208,
+      "startsDaysAgo": 9,
+      "endsDaysAhead": 21,
+      "status": "active"
+    },
+    {
+      "id": "vc_2",
+      "code": "FREESHIP99",
+      "kind": "freeship",
+      "value": 0,
+      "minOrderVnd": 300000,
+      "totalUses": 500,
+      "perCustomer": 3,
+      "usedCount": 210,
+      "startsDaysAgo": 30,
+      "endsDaysAhead": 30,
+      "status": "active"
+    },
+    {
+      "id": "vc_3",
+      "code": "TET2026",
+      "kind": "fixed",
+      "value": 100000,
+      "minOrderVnd": 1000000,
+      "totalUses": 100,
+      "perCustomer": 1,
+      "usedCount": 100,
+      "startsDaysAgo": 160,
+      "endsDaysAhead": -130,
+      "status": "paused"
+    }
+  ],
+  "flashSales": [
+    {
+      "id": "fs_1",
+      "name": "Flash sale 52TOYS — giảm 20%",
+      "startsHoursAgo": 6,
+      "endsHoursAhead": 2,
+      "items": [
+        { "variantId": "v_rg_std", "salePriceVnd": 712000, "cap": 30, "sold": 18 },
+        { "variantId": "v_bs_single", "salePriceVnd": 208000, "cap": 50, "sold": 22 }
+      ]
+    }
+  ],
+  "drops": [
+    {
+      "id": "drop_live",
+      "name": "CỤC VÀNG — Bản Tết 2026",
+      "startsHoursAhead": -2,
+      "endsHoursAhead": 22,
+      "earlyMinutes": 10,
+      "items": [
+        { "productId": "p_cucvang", "allocation": 300, "perLimit": 2, "sold": 212 }
+      ]
+    },
+    {
+      "id": "drop_up",
+      "name": "LẠC TROOP × VICI — 5th Anniversary",
+      "startsHoursAhead": 86,
+      "endsHoursAhead": null,
+      "earlyMinutes": 10,
+      "items": [
+        { "productId": "p_lac5th", "allocation": 500, "perLimit": 1, "sold": 0 }
+      ]
+    }
+  ],
+  "preorderCampaigns": [
+    {
+      "id": "poc_1",
+      "productId": "p_gauxl",
+      "opensDaysAgo": 5,
+      "closesDaysAhead": 9,
+      "depositPercent": 30,
+      "etaDaysAhead": 62,
+      "slots": 40,
+      "taken": 18,
+      "forfeitPolicy": "Huỷ sau khi chốt đơn: mất 50% tiền cọc"
+    }
+  ],
+  "waitlist": [
+    {
+      "id": "wl_1",
+      "customerId": "u_minh",
+      "targetType": "product",
+      "targetId": "p_meomap",
+      "createdDaysAgo": 4
+    },
+    {
+      "id": "wl_2",
+      "customerId": "u_lan",
+      "targetType": "drop",
+      "targetId": "drop_up",
+      "createdDaysAgo": 1
+    }
+  ]
+}

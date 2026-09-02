@@ -1,0 +1,39 @@
+{
+  "expenses": [
+    {
+      "id": "ex_1",
+      "category": "Mặt bằng",
+      "amountVnd": 32000000,
+      "daysAgo": 5,
+      "note": "Thuê mặt bằng tháng này — 42 Lý Tự Trọng"
+    },
+    {
+      "id": "ex_2",
+      "category": "Vận chuyển",
+      "amountVnd": 6240000,
+      "daysAgo": 4,
+      "note": "Phí ship GHN tháng trước"
+    },
+    {
+      "id": "ex_3",
+      "category": "Marketing",
+      "amountVnd": 4500000,
+      "daysAgo": 14,
+      "note": "Quảng cáo drop CỤC VÀNG Tết"
+    },
+    {
+      "id": "ex_4",
+      "category": "Đóng gói",
+      "amountVnd": 1200000,
+      "daysAgo": 7,
+      "note": "Thùng double box + chèn xốp"
+    }
+  ],
+  "settings": {
+    "freeShipThresholdVnd": 500000,
+    "holdMinutes": 15,
+    "pointEarnRate": 10000,
+    "pointValueVnd": 100,
+    "maxPointPercent": 50
+  }
+}

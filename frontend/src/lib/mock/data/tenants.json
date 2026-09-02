@@ -1,0 +1,71 @@
+{
+  "tenants": [
+    {
+      "id": "t_vici",
+      "subdomain": "vici-saigon",
+      "displayName": "VICI Saigon",
+      "status": "active",
+      "planCode": "collector",
+      "branding": { "logoEmoji": "🧸", "accentToken": "pri", "tagline": "Săn secret. Sưu tầm nghiêm túc." },
+      "ownerName": "Vy",
+      "ownerEmail": "vy@vici.shop",
+      "customDomain": "vicisaigon.com",
+      "usage": { "products": 24, "ordersMonth": 380, "staffSeats": 3 },
+      "mrrVnd": 1490000,
+      "createdDaysAgo": 400
+    },
+    {
+      "id": "t_moonrabbit",
+      "subdomain": "moon-rabbit",
+      "displayName": "Moon Rabbit Toys",
+      "status": "active",
+      "planCode": "shop",
+      "branding": { "logoEmoji": "🌙", "accentToken": "viol", "tagline": "Blind box mỗi tuần." },
+      "ownerName": "Trang",
+      "ownerEmail": "trang@moonrabbit.vn",
+      "usage": { "products": 112, "ordersMonth": 640, "staffSeats": 2 },
+      "mrrVnd": 490000,
+      "createdDaysAgo": 120
+    },
+    {
+      "id": "t_kaiju",
+      "subdomain": "kaiju-club",
+      "displayName": "Kaiju Club",
+      "status": "past_due",
+      "planCode": "shop",
+      "branding": { "logoEmoji": "🦖", "accentToken": "drop", "tagline": "Sofubi & vinyl." },
+      "ownerName": "Huy",
+      "ownerEmail": "huy@kaijuclub.vn",
+      "usage": { "products": 88, "ordersMonth": 210, "staffSeats": 2 },
+      "mrrVnd": 490000,
+      "createdDaysAgo": 210
+    },
+    {
+      "id": "t_pastel",
+      "subdomain": "pastel-parade",
+      "displayName": "Pastel Parade",
+      "status": "suspended",
+      "planCode": "starter",
+      "branding": { "logoEmoji": "🎠", "accentToken": "sky", "tagline": "Dễ thương là chính." },
+      "ownerName": "Mai",
+      "ownerEmail": "mai@pastelparade.vn",
+      "usage": { "products": 18, "ordersMonth": 0, "staffSeats": 1 },
+      "mrrVnd": 0,
+      "createdDaysAgo": 60,
+      "suspendedReason": "Quá hạn thanh toán sau 3 lần thử (dunning)"
+    },
+    {
+      "id": "t_grail",
+      "subdomain": "grail-hunter",
+      "displayName": "Grail Hunter",
+      "status": "provisioning",
+      "planCode": "shop",
+      "branding": { "logoEmoji": "🏆", "accentToken": "gold", "tagline": "Chase hoặc không gì cả." },
+      "ownerName": "Đức",
+      "ownerEmail": "duc@grailhunter.vn",
+      "usage": { "products": 0, "ordersMonth": 0, "staffSeats": 1 },
+      "mrrVnd": 490000,
+      "createdDaysAgo": 0
+    }
+  ]
+}

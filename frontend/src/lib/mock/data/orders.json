@@ -1,0 +1,102 @@
+{
+  "seedOrders": [
+    {
+      "idx": 1,
+      "customerId": "u_bao",
+      "daysAgo": 28,
+      "status": "completed",
+      "lines": [{ "productId": "p_ronggiay", "variantId": "v_rg_std", "qty": 1 }],
+      "method": "vnpay"
+    },
+    {
+      "idx": 2,
+      "customerId": "u_lan",
+      "daysAgo": 25,
+      "status": "completed",
+      "lines": [{ "productId": "p_maytroi", "variantId": "v_may_single", "qty": 2 }],
+      "method": "cod"
+    },
+    {
+      "idx": 3,
+      "customerId": "u_minh",
+      "daysAgo": 21,
+      "status": "completed",
+      "lines": [{ "productId": "p_maytroi", "variantId": "v_may_set", "qty": 1 }],
+      "method": "vnpay"
+    },
+    {
+      "idx": 4,
+      "customerId": "u_tram",
+      "daysAgo": 15,
+      "status": "completed",
+      "lines": [{ "productId": "p_besong", "variantId": "v_bs_single", "qty": 3 }],
+      "method": "momo"
+    },
+    {
+      "idx": 5,
+      "customerId": "u_minh",
+      "daysAgo": 12,
+      "status": "completed",
+      "lines": [
+        { "productId": "p_mayglow", "variantId": "v_glow_single", "qty": 1 },
+        { "productId": "p_lacmini", "variantId": "v_lac_single", "qty": 2 }
+      ],
+      "method": "vnpay"
+    },
+    {
+      "idx": 6,
+      "customerId": "u_minh",
+      "daysAgo": 9,
+      "status": "returned",
+      "lines": [{ "productId": "p_ronggiay", "variantId": "v_rg_std", "qty": 1 }],
+      "method": "cod"
+    },
+    {
+      "idx": 7,
+      "customerId": "u_lan",
+      "daysAgo": 6,
+      "status": "completed",
+      "lines": [{ "productId": "p_lacmini", "variantId": "v_lac_set", "qty": 1 }],
+      "method": "momo"
+    },
+    {
+      "idx": 8,
+      "customerId": "u_minh",
+      "daysAgo": 3,
+      "status": "shipped",
+      "lines": [{ "productId": "p_cucvang", "variantId": "v_cucvang", "qty": 2 }],
+      "method": "vnpay",
+      "dropId": "drop_live"
+    },
+    {
+      "idx": 9,
+      "customerId": "u_lan",
+      "daysAgo": 1,
+      "status": "packing",
+      "lines": [
+        { "productId": "p_maytroi", "variantId": "v_may_single", "qty": 1 },
+        { "productId": "p_besong", "variantId": "v_bs_single", "qty": 1 }
+      ],
+      "method": "cod"
+    },
+    {
+      "idx": 10,
+      "customerId": "u_bao",
+      "daysAgo": 0.2,
+      "status": "confirmed",
+      "lines": [{ "productId": "p_cucvang", "variantId": "v_cucvang", "qty": 2 }],
+      "method": "momo",
+      "dropId": "drop_live"
+    }
+  ],
+  "preorder": {
+    "id": "o_po1",
+    "code": "VC-2001",
+    "customerId": "u_minh",
+    "productId": "p_gauxl",
+    "variantId": "v_gau_xl",
+    "campaignId": "poc_1",
+    "daysAgo": 4,
+    "depositPercent": 30
+  }
+}

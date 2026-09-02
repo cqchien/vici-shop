@@ -1,0 +1,78 @@
+# Vici — root .gitignore
+# frontend/ has its own .gitignore (Next.js). This covers backend/, infra, and shared concerns.
+
+# ── OS / editor ─────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# ── Secrets & local config — NEVER commit (CONSTITUTION Art. II) ──
+# Real env files are git-ignored; every service commits a .env.example with placeholders.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.keystore
+.claude/settings.local.json
+
+# ── Node / NestJS (auth, user, order, tenant, billing) ──────
+node_modules/
+dist/
+build/
+out/
+coverage/
+.nyc_output/
+*.tsbuildinfo
+.eslintcache
+npm-debug.log*
+yarn-error.log*
+yarn-debug.log*
+.pnpm-debug.log*
+.pnpm-store/
+
+# ── Go (product, inventory, cart, payment, shipping, promotion, finance, notification) ──
+/bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+vendor/
+# Generated proto stubs — regenerated from backend/libs/proto/*.proto via buf.
+# Do not commit generated code (CONSTITUTION Art. I.4, coding-conventions-go.md §16).
+backend/libs/proto/gen/
+backend/libs/proto/generated/
+
+# ── Terraform ──────────────────────────────────────────────
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+# .terraform.lock.hcl IS committed (pins provider versions)
+
+# ── Docker / local infra ───────────────────────────────────
+docker-compose.override.yml
+docker-compose.*.local.yml
+
+# ── Test / build artifacts ─────────────────────────────────
+*.log
+.cache/
+tmp/
+.tmp/
+*.pid
+*.seed
+
+# ── k6 ─────────────────────────────────────────────────────
+backend/tools/k6/**/summary.json
+backend/tools/k6/**/*.html

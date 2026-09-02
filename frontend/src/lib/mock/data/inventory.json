@@ -1,0 +1,63 @@
+{
+  "stock": [
+    { "sku": "MAY-GMT-BOX", "onHand": 218, "reserved": 2, "threshold": 60 },
+    { "sku": "MAY-GMT-SET", "onHand": 26, "reserved": 0, "threshold": 8 },
+    { "sku": "MAY-GLW-BOX", "onHand": 89, "reserved": 0, "threshold": 30 },
+    { "sku": "LAC-M2-BOX", "onHand": 34, "reserved": 0, "threshold": 40 },
+    { "sku": "LAC-M2-SET", "onHand": 9, "reserved": 0, "threshold": 4 },
+    { "sku": "BS-BD-BOX", "onHand": 57, "reserved": 0, "threshold": 20 },
+    { "sku": "RG-LX-STD", "onHand": 45, "reserved": 0, "threshold": 10 },
+    { "sku": "MM-DC-STD", "onHand": 0, "reserved": 0, "threshold": 10 },
+    { "sku": "GAU-XL-400", "onHand": 0, "reserved": 0, "threshold": 0 },
+    { "sku": "CV-TET-26", "onHand": 88, "reserved": 2, "threshold": 0 },
+    { "sku": "LAC-5TH-26", "onHand": 500, "reserved": 0, "threshold": 0 },
+    { "sku": "GAU-MN-STD", "onHand": 7, "reserved": 0, "threshold": 10 }
+  ],
+  "costLots": [
+    { "sku": "MAY-GMT-BOX", "avgCostVnd": 165000 },
+    { "sku": "MAY-GMT-SET", "avgCostVnd": 940000 },
+    { "sku": "MAY-GLW-BOX", "avgCostVnd": 210000 },
+    { "sku": "LAC-M2-BOX", "avgCostVnd": 190000 },
+    { "sku": "LAC-M2-SET", "avgCostVnd": 1440000 },
+    { "sku": "BS-BD-BOX", "avgCostVnd": 150000 },
+    { "sku": "RG-LX-STD", "avgCostVnd": 560000 },
+    { "sku": "MM-DC-STD", "avgCostVnd": 260000 },
+    { "sku": "GAU-XL-400", "avgCostVnd": 2250000 },
+    { "sku": "CV-TET-26", "avgCostVnd": 900000 },
+    { "sku": "LAC-5TH-26", "avgCostVnd": 1150000 },
+    { "sku": "GAU-MN-STD", "avgCostVnd": 420000 }
+  ],
+  "receipts": [
+    {
+      "id": "rc_1",
+      "supplier": "Studio MÂY (Hà Nội)",
+      "lines": [
+        { "sku": "MAY-GMT-BOX", "qty": 120, "unitCostVnd": 165000 },
+        { "sku": "MAY-GMT-SET", "qty": 10, "unitCostVnd": 940000 },
+        { "sku": "MAY-GLW-BOX", "qty": 60, "unitCostVnd": 210000 }
+      ],
+      "receivedDaysAgo": 28,
+      "paymentStatus": "paid"
+    },
+    {
+      "id": "rc_2",
+      "supplier": "LẠC TROOP Distribution",
+      "lines": [
+        { "sku": "LAC-M2-BOX", "qty": 80, "unitCostVnd": 190000 },
+        { "sku": "GAU-MN-STD", "qty": 30, "unitCostVnd": 420000 }
+      ],
+      "receivedDaysAgo": 21,
+      "paymentStatus": "partial"
+    },
+    {
+      "id": "rc_3",
+      "supplier": "Xưởng VICI (hàng độc quyền)",
+      "lines": [
+        { "sku": "CV-TET-26", "qty": 300, "unitCostVnd": 900000 },
+        { "sku": "LAC-5TH-26", "qty": 500, "unitCostVnd": 1150000 }
+      ],
+      "receivedDaysAgo": 6,
+      "paymentStatus": "paid"
+    }
+  ]
+}

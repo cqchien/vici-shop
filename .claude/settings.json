@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Bash",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git remote:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(pnpm install)",
+      "Bash(pnpm --filter:*)",
+      "Bash(pnpm run:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm build:*)",
+      "Bash(buf:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "c=$(jq -r '.tool_input.command // \"\"'); if printf '%s' \"$c\" | grep -qE '(^|[^[:alnum:]_])git[[:space:]]+(commit|push|tag)([[:space:]]|$)|(^|[^[:alnum:]_])git[[:space:]]+reset[[:space:]]+--hard'; then echo 'BLOCKED by Constitution Article I: never run git commit/push/tag/force-push/reset --hard without an explicit user request in this conversation. Ask the user first.' >&2; exit 2; fi",
+            "statusMessage": "Checking git guardrail (Article I)"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "i=$(cat); fp=$(printf '%s' \"$i\" | jq -r '.tool_input.file_path // \"\"'); b=$(basename \"$fp\"); case \"$b\" in .env.example|.env.sample|.env.template|.env.dist) ;; .env|.env.*) echo \"BLOCKED by Constitution Article II: do not write secrets to $b. Configuration belongs in environment variables; document each one in .env.example with placeholder values only.\" >&2; exit 2 ;; esac; case \"$fp\" in *.md|*.mdx|*.example|*.sample|*.template) exit 0 ;; esac; ct=$(printf '%s' \"$i\" | jq -r '.tool_input.content // .tool_input.new_string // \"\"'); if printf '%s' \"$ct\" | grep -qE 'AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|ghp_[A-Za-z0-9]{36}|xox[baprs]-[A-Za-z0-9-]{10,}|sk_live_[A-Za-z0-9]{16,}|AIza[0-9A-Za-z_-]{35}'; then echo 'BLOCKED by Constitution Article II: this content matches a real credential format (AWS / GitHub / Slack / Stripe / Google / PEM private key). Never put secrets in the repo; load them from environment variables.' >&2; exit 2; fi",
+            "statusMessage": "Scanning for secrets (Article II)"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "fp=$(jq -r '.tool_input.file_path // .tool_response.filePath // \"\"'); case \"$fp\" in *.ts|*.tsx) ;; *) exit 0 ;; esac; d=$(dirname \"$fp\"); while [ \"$d\" != \"/\" ] && [ \"$d\" != \".\" ]; do if [ -f \"$d/package.json\" ]; then if grep -q '\"lint\"' \"$d/package.json\" 2>/dev/null; then (cd \"$d\" && pnpm run lint 2>&1; pnpm run typecheck 2>&1) || true; fi; break; fi; d=$(dirname \"$d\"); done; exit 0",
+            "statusMessage": "Lint + typecheck"
+          }
+        ]
+      }
+    ]
+  }
+}
