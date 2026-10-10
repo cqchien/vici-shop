@@ -17,5 +17,7 @@ tăng dần, **viết trước khi code**. ADR đã accept không sửa nội du
 | [ADR-009](ADR-009-tenant-context-propagation.md) | Lan truyền và phân giải tenant context xuyên hệ thống | Accepted |
 | [ADR-010](ADR-010-serverless-aws-delivery.md) | Vận hành serverless trên AWS (Lambda + EventBridge + SQS + SNS + Step Functions) | **Proposed** |
 | [ADR-011](ADR-011-identity-customer-plane-nestjs.md) | auth-service + user-service dùng TypeScript/NestJS (5 NestJS / 8 Go) | Accepted |
+| [ADR-012](ADR-012-service-direct-access-lockdown.md) | Khoá truy cập trực tiếp vào service — cô lập mạng + header bí mật do Kong cấp | Accepted |
+| [ADR-013](ADR-013-uuid-v7-and-date-handling.md) | UUID v7 cho mọi identifier; `Date` là kiểu thời điểm duy nhất, `date-fns` cho mọi phép tính/so sánh | Accepted |
 
 Tạo ADR mới: copy [adr-template.md](adr-template.md), đặt tên `ADR-<số>-<slug>.md`, thêm vào bảng trên.

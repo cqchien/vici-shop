@@ -34,6 +34,11 @@ wiring differences are called out inline; full Go coding conventions are in
 
 - `domain` depends on **nothing** — no framework, no ORM, no SDK, no env reads. Pure Go structs
   and interfaces (or pure TypeScript for order-service).
+  - **Two named exceptions (ADR-013), TypeScript only**: `date-fns` (every date calculation and
+    comparison; the instant itself stays a native `Date`) and `uuid` (`v7` for identity). Both are
+    pure — no I/O, no config, no runtime coupling — and neither introduces a type of its own, so
+    nothing has to be converted at a boundary. Nothing else joins this list without a new ADR. Go
+    needs no exception: `time` and `github.com/google/uuid` cover it.
 - `application` depends on **`domain` only**. It defines use cases and the **ports** (interfaces)
   it needs from the outside world.
 - `infrastructure` and `interface` depend **inward** (on `application` and `domain`). They are the
@@ -44,6 +49,10 @@ wiring differences are called out inline; full Go coding conventions are in
 
 If you ever feel the urge to import `pgx` or `go-redis` inside `domain/`, stop — that's the rule
 breaking. Map at the boundary instead.
+
+The test for a would-be exception is not "is it small?" but **"does it do I/O, read config, or
+tie the domain to a runtime?"** `date-fns` fails none of those; a date library that fetched a
+timezone database over the network would.
 
 ---
 
@@ -99,12 +108,24 @@ backend/services/<name>-service/
 
 Mirror this in `test/` with `unit/`, `integration/`, and `e2e/`.
 
-### TypeScript/NestJS services (auth, user, order, tenant, billing)
+### TypeScript/NestJS services
 
-> auth-service and user-service omit `application/saga/` (no orchestration) and do not use
-> Event Sourcing — plain CRUD hexagonal (ADR-011). order/tenant/billing use the full layout.
+Two sub-layouts share everything except the `application/` folder:
+
+| Services | `application/` layout | Why |
+| --- | --- | --- |
+| **order, tenant, billing** | `command/` + `query/` (+ `saga/` for order & tenant) | CQRS / ES / Saga with `@nestjs/cqrs` (ADR-002/008) |
+| **auth, user** | `use-case/` | Plain CRUD hexagonal — no `@nestjs/cqrs`, no command bus, no event store, no saga (ADR-011) |
+
+> **Never name a plain use case `command/` + `*.handler.ts`.** Those names mean "CQRS command
+> handler dispatched by a bus" everywhere else in this repo and in `docs/knowledge/03-cqrs/`.
+> A plain use case is `application/use-case/<verb-noun>.use-case.ts` exporting a
+> `class <VerbNoun>UseCase { execute(input): Promise<result> }` that the controller calls
+> directly. Its input/output types live in `application/dto/<verb-noun>.io.ts` as
+> `<VerbNoun>Input` / `<VerbNoun>Result` — not `<VerbNoun>Command`.
 
 ```text
+# CQRS layout — order-service (tenant/billing similar)
 services/order-service/src/
 ├── domain/                      # THE CORE — pure TypeScript, no NestJS imports
 │   ├── model/                   # Aggregates, Entities, Value Objects
@@ -119,20 +140,51 @@ services/order-service/src/
 │   ├── saga/                    # Saga process managers (@nestjs/cqrs Saga)
 │   └── dto/                     # Application-level DTOs
 │
-├── infrastructure/              # DRIVEN ADAPTERS
+├── infrastructure/              # DRIVEN ADAPTERS — one per bounded-context dependency
 │   ├── persistence/             # TypeORM entities, mappers, repositories, migrations
 │   ├── messaging/               # Kafka producers/consumers, Outbox relay
 │   ├── grpc/                    # gRPC clients (outbound)
-│   ├── cache/                   # Redis adapters
-│   └── config/                  # zod/joi env schema
+│   └── cache/                   # Redis adapters
 │
 ├── interface/                   # DRIVING ADAPTERS
 │   ├── rest/                    # NestJS controllers + class-validator DTOs
 │   ├── grpc/                    # gRPC service handlers (inbound)
 │   └── event/                   # Kafka consumers as inbound adapters
 │
+├── shared/                      # CROSS-CUTTING — not tied to this context's domain
+│   ├── config/                  # zod env schema + typed ApiConfigService (the only env reader)
+│   ├── logging/                 # LOGGER port + pino/nestjs-pino adapter + LoggingModule
+│   ├── errors/                  # DomainError base and transport-agnostic error types
+│   ├── http/                    # response envelope
+│   ├── tenant/                  # CLS keys
+│   ├── utils/                   # pure helpers (uuid v7 factory — ADR-013)
+│   └── index.ts                 # the PURE face of shared/ — see the warning below
+│
 ├── order.module.ts              # NestJS wiring: bind ports → adapters via DI
 └── main.ts                      # bootstrap, OTel init, graceful shutdown
+```
+
+> **`shared/` is where cross-cutting concerns live, not where "miscellaneous" goes.** Config and
+> logging belong to the *service*, not to its bounded context — they are the same in every
+> service, and nothing in `domain/` is expressed in terms of them. Two rules keep this from
+> eroding the dependency rule:
+>
+> 1. **`shared/index.ts` must stay importable by `domain/`** — so it may only re-export pure
+>    things. The logger is re-exported from `shared/logging/logger.port` (token + interface) and
+>    explicitly *not* from `shared/logging` (the barrel, which pulls `@nestjs/*` and pino).
+>    `shared/config` is never re-exported at all: it reads `process.env`, so the composition root
+>    imports it by path.
+> 2. **Lint enforces it.** The `src/domain/**` override in `.eslintrc.cjs` names
+>    `**/shared/config`, `**/shared/logging` and the concrete logging adapters alongside
+>    `**/infrastructure/*`. Without that, moving framework code into `shared/` silently reopens
+>    the door that `**/infrastructure/*` used to close.
+
+```text
+# Plain CRUD layout — auth-service, user-service — differs only under application/
+├── application/
+│   ├── use-case/                # <verb-noun>.use-case.ts — class …UseCase { execute() }, no bus
+│   ├── dto/                     # <verb-noun>.io.ts — …Input / …Result
+│   └── config/                  # application-facing config port (token + interface)
 ```
 
 ### What goes where — quick test
@@ -141,10 +193,11 @@ services/order-service/src/
 | --- | --- |
 | enforces a business invariant ("an order can't be paid twice") | `domain/model` |
 | describes an interface to the outside ("I need to load an Order") | `domain/port` |
-| coordinates a use case ("create order: validate, save, emit event") | `application/command` |
+| coordinates a use case ("create order: validate, save, emit event") | `application/command` (CQRS) · `application/use-case` (plain) |
 | talks SQL, Kafka, Redis, gRPC, or HTTP | `infrastructure` |
 | parses an HTTP/gRPC/Kafka request and calls a use case | `interface` |
-| reads `os.Getenv` / `process.env` | `infrastructure/config` (nowhere else) |
+| reads `os.Getenv` / `process.env` | Go: `internal/infrastructure/config` · TS: `src/shared/config` (nowhere else, either way) |
+| logs, traces, or meters (the adapter, not the call site) | Go: `infrastructure/observability` · TS: `src/shared/logging` |
 
 ---
 

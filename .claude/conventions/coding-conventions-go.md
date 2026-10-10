@@ -72,6 +72,43 @@ standard style (Effective Go, Go Code Review Comments).
 - **No primitive obsession**: wrap `userID string` as `UserID` type, `amount float64` as `Money`.
   Prevents cross-context ID confusion and documents units.
 
+## 4b. Identifiers & time (ADR-013)
+
+- **UUID v7, never v4.** Use `github.com/google/uuid` and wrap it once per service so there is a
+  single factory:
+
+  ```go
+  // internal/domain/model/id.go
+  func NewID() (string, error) {
+      id, err := uuid.NewV7()
+      if err != nil {
+          return "", fmt.Errorf("newID: %w", err)
+      }
+      return id.String(), nil
+  }
+  ```
+
+  v7 leads with a millisecond timestamp, so ids sort by creation time and index inserts stay at
+  the right edge of the B-tree — it matters for every `tenant_id`-prefixed index in the pooled
+  schema (ADR-007). `uuid.New()` is v4; don't reach for it.
+- **Mint narrowly, accept widely.** Validation accepts any well-formed UUID (a `tenant_id` is
+  request input); only generation is pinned to v7.
+- Aggregates generate their own id — never `DEFAULT gen_random_uuid()` on a primary key. Test
+  fixtures use the same factory so they exercise the production format.
+- **Time is stdlib `time.Time`** — immutable, zone-aware, monotonic-safe, with arithmetic and
+  comparison built in, so Go takes no third-party date library. It already has what the
+  TypeScript services borrow `date-fns` for (ADR-013); the rule below is the same rule.
+  - A `Clock` port is still mandatory: `type Clock interface { Now() time.Time }`, returning
+    `time.Now().UTC()`. Never call `time.Now()` inside `domain/` or `application/` — unit tests
+    have no clock (§11).
+  - Durations are `time.Duration`, never an int of unstated units: `now.Add(ttl)`, not
+    `now.Add(time.Duration(ttlMinutes) * time.Minute)` scattered at call sites — take a
+    `time.Duration` in the signature.
+  - **Store UTC, always** (`timestamptz`). A tenant's timezone interprets or renders an instant,
+    never decides how one is persisted.
+  - Compare with `Before`/`After`/`Equal`, not `==` — `==` also compares the wall-clock/monotonic
+    internals and the location pointer.
+
 ## 5. Error handling
 
 - **Typed sentinel errors** for domain errors:

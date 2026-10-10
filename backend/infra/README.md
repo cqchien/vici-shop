@@ -13,15 +13,22 @@ infra/
 
 ## Local Development
 
-```bash
-# Start infra only
-docker compose -f infra/docker/docker-compose.infra.yml up -d
+`docker/docker-compose.yml` is the **one stack for the whole backend** — it `include:`s the infra
+file and adds Kong + every service. Each service ships only a `Dockerfile` (and runs its own
+migrations on start); no service has its own compose file.
 
-# Start everything
-docker compose -f infra/docker/docker-compose.yml up -d
+```bash
+cd infra/docker && cp .env.example .env
+
+# Everything: postgres + kong (:8000) + all implemented services
+docker compose up -d --build
+
+# Infra only (run services from your IDE with `pnpm start:dev`)
+docker compose -f docker-compose.infra.yml up -d
 ```
 
-See [docs/runbooks/local-dev-setup.md](../docs/runbooks/local-dev-setup.md) for step-by-step guide.
+`init-databases.sql` creates the runtime roles (`vici_app` / `vici_platform` / `vici_relay`) and
+the per-service databases.
 
 ## Kubernetes (Phase 4+)
 
