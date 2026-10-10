@@ -1,0 +1,15 @@
+node_modules
+dist
+coverage
+test
+.env
+.env.*
+!.env.example
+*.log
+.git
+.eslintrc.cjs
+.prettierrc
+jest.config.js
+postman
+TEST-REPORT.md
+README.md
