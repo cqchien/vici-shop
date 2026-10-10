@@ -58,10 +58,12 @@ exemplary.
 - @.claude/CONSTITUTION.md — non-negotiable guardrails (git, secrets, safety, quality bar)
 - @.claude/conventions/architecture.md — Hexagonal / Ports & Adapters + DDD layering and the
   per-service folder structure every service must follow
-- @.claude/conventions/coding-conventions-go.md — Go style, naming, errors, logging, testing,
-  and commit conventions (the 8 Go services)
-- @.claude/conventions/coding-conventions.md — TypeScript/NestJS conventions (auth, user, order,
-  tenant, billing)
+- **Per-language style rules load automatically** when you work inside a service directory
+  (each `backend/services/*-service/CLAUDE.md` imports the right one):
+  `.claude/conventions/coding-conventions.md` — TypeScript/NestJS (auth, user, order, tenant,
+  billing) · `.claude/conventions/coding-conventions-go.md` — Go style, naming, errors, logging,
+  testing, commits (the 8 Go services). Read either file directly when you need it outside a
+  service folder.
 
 ## The five rules that override convenience
 
