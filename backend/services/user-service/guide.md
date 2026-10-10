@@ -44,10 +44,11 @@ Read in order. For each, write down your answers — extract, don't skim.
 
 Extract:
 
-**REST table** — for each endpoint: command or query? which role?
+**REST table** — for each endpoint: read or write? which role? (This is just a mental split for
+naming — user-service has no CQRS command/query buses, one `use-case/` folder holds both.)
 ```
-/v1/me                        GET   customer   query
-/v1/me                        PATCH customer   command
+/v1/me                        GET   customer   read
+/v1/me                        PATCH customer   write
 /v1/me/addresses              GET/POST/PATCH/DELETE
 /v1/me/addresses/:id/default  POST
 /v1/me/points                 GET
@@ -121,10 +122,10 @@ Answer in writing. No `.ts` files yet.
 - "Tier promotion takes effect immediately; demotion only at the next 12-month review."
 - "`point_entries` is append-only — expiry/spend create new rows, never update/delete."
 
-### 3. Map endpoints → handlers
+### 3. Map endpoints → use cases
 
-For each REST endpoint and each RPC: command or query? handler name
-(`UpdateProfileHandler`, `GetProfileHandler`, `ReservePointsHandler`, …).
+For each REST endpoint and each RPC, name the use case:
+`UpdateProfileUseCase`, `GetProfileUseCase`, `ReservePointsUseCase`, … (one class, `execute()`).
 
 ### 4. Ports the domain needs
 
@@ -157,10 +158,14 @@ bound in `user.module.ts`.
 ### 5. What goes in `package.json`
 
 From the conventions: `@nestjs/*` core, `@nestjs/microservices` (gRPC), `class-validator` +
-`class-transformer`, a Postgres client (`pg` with hand-written mappers, or TypeORM with entities
-mapped **to** domain models — the domain model is never an ORM entity), `zod` or `joi` for env,
-`kafkajs`. `@nestjs/cqrs` is **optional** here (command/query split only, no event store).
-List the deps — don't install yet.
+`class-transformer`, a Postgres client (TypeORM with entities mapped **to** domain models — the
+domain model is never an ORM entity), `zod` for env, `kafkajs`.
+
+> **No `@nestjs/cqrs`.** user-service (like auth-service) is plain CRUD hexagonal (ADR-011).
+> Use cases live in `src/application/use-case/<verb-noun>.use-case.ts` as
+> `class <VerbNoun>UseCase { execute(input) }` — no command bus, no `*.handler.ts`, no `*Command`
+> types. See `backend/services/auth-service/` for the worked reference (folder layout, RLS
+> `tenant-transaction.ts`, `ApiConfigService`, exception filter, response interceptor, jest setup).
 
 ---
 
@@ -198,9 +203,9 @@ Then `Tier` recalc: `promotes immediately when 12m spend crosses a threshold`,
 These won't compile — that's the Red phase. Run `pnpm test src/domain` and write the compile
 errors down: that's your implementation TODO list.
 
-### Step 2 — Application handler specs (fakes, zero I/O)
+### Step 2 — Application use-case specs (fakes, zero I/O)
 
-`src/application/command/update-profile.handler.spec.ts` — a fake repo:
+`src/application/use-case/update-profile.use-case.spec.ts` — a fake repo:
 
 ```ts
 class FakeCustomerRepo implements CustomerRepository {
@@ -210,13 +215,13 @@ class FakeCustomerRepo implements CustomerRepository {
   async findByAccountId(a: AccountId) { /* ... */ }
 }
 
-it('UpdateProfileHandler persists the change', async () => { /* seed → execute → assert fake */ });
-it('UpdateProfileHandler throws CustomerNotFound when absent', async () => { /* empty fake */ });
+it('UpdateProfileUseCase persists the change', async () => { /* seed → execute → assert fake */ });
+it('UpdateProfileUseCase throws CustomerNotFound when absent', async () => { /* empty fake */ });
 ```
 
-Same pattern for `AddAddressHandler`, `DeleteAddressHandler`, `SetDefaultAddressHandler`,
-`ReservePointsHandler`, `AdjustPointsHandler`, and queries `GetProfileHandler`,
-`ListAddressesHandler`, `GetPointsHistoryHandler`.
+Same pattern for `AddAddressUseCase`, `DeleteAddressUseCase`, `SetDefaultAddressUseCase`,
+`ReservePointsUseCase`, `AdjustPointsUseCase`, `GetProfileUseCase`, `ListAddressesUseCase`,
+`GetPointsHistoryUseCase`.
 
 ### Step 3 — Persistence integration specs (`test/integration/`)
 
@@ -251,11 +256,11 @@ SQL level (partial unique index `WHERE is_default`).
 
 ### Step 4 — Controller specs (`src/interface/rest/*.spec.ts`)
 
-Nest testing module, no real DB — inject fake handlers. Assert: 200/201/204 happy paths, 401
+Nest testing module, no real DB — inject fake use cases. Assert: 200/201/204 happy paths, 401
 when the tenant/identity context is missing, 404 mapped from `CustomerNotFoundError`, 422 from
 `InsufficientPointsError`. The exception filter does the mapping — test it once, separately.
 
-### Step 5 — gRPC handler specs (`src/interface/grpc/*.spec.ts`)
+### Step 5 — gRPC inbound-adapter specs (`src/interface/grpc/*.spec.ts`)
 
 ```ts
 it('GetTier returns the customer tier', async () => { /* fake query → assert response */ });
@@ -276,9 +281,9 @@ Write in this order; run each layer's tests before the next.
                                              reservePoints(), recalculateTier(), apply-style mutators
 4. src/domain/model/address.ts             ← entity
 5. src/domain/port/*.ts                    ← interfaces + injection tokens ONLY
-6. src/application/dto/*.ts                 ← plain input/output types
-7. src/application/command/*.handler.ts     ← one file per command
-8. src/application/query/*.handler.ts       ← one file per query, reads the repo directly
+6. src/application/dto/*.io.ts              ← plain <verb-noun>Input / <verb-noun>Result types
+7. src/application/use-case/*.use-case.ts   ← one file per use case; class …UseCase { execute() }
+                                             (no command bus, no *.handler.ts — ADR-011)
 9. src/infrastructure/config/env.ts         ← zod schema, throws on missing var at startup
 10. src/infrastructure/persistence/         ← migrations (SQL) + PgCustomerRepository + mapper
 11. src/infrastructure/persistence/tenant-context.ts  ← request-scoped provider + SET LOCAL helper
@@ -370,8 +375,8 @@ filter's job, not the controller's.
 @Controller('v1/me')
 @UseGuards(JwtContextGuard)
 export class MeController {
-  constructor(private readonly getProfile: GetProfileHandler,
-              private readonly updateProfile: UpdateProfileHandler) {}
+  constructor(private readonly getProfile: GetProfileUseCase,
+              private readonly updateProfile: UpdateProfileUseCase) {}
 
   @Get()
   get(@CurrentAccount() acc: AccountId) {

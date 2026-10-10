@@ -5,6 +5,16 @@ guard cho RBAC, OAuth; **không** CQRS/ES/Saga — CRUD thường) · REST `3001
 style [coding-conventions.md](../../.claude/conventions/coding-conventions.md) ·
 FR: [FR-AUTH-01..05](../10-requirements/11-auth-users.md)
 
+> **Trạng thái triển khai (2026-09-04):** code đầu tiên của backend. Đã hiện thực **trọn vẹn 1
+> endpoint làm mẫu** cho service NestJS CRUD (auth/user): `POST /v1/auth/register` (FR-AUTH-01)
+> — use case ở `application/use-case/*.use-case.ts` (KHÔNG `@nestjs/cqrs`, không `command/`), hexagonal
+> + DDD, TypeORM + RLS (ADR-007/009), outbox `auth.otp_requested` (ADR-004), Kong route + rate
+> limit, khoá truy cập trực tiếp (ADR-012: không publish port + `GatewayOnlyGuard`), 75 test
+> (unit/integration Testcontainers/e2e). Xem `backend/services/auth-service/README.md`.
+> `verify-email`, `login`,
+> `refresh`, OAuth, gRPC, và `user-service` là các task tiếp theo (chưa code) — liệt kê ở cuối
+> README.
+
 > **Phạm vi tenant (ADR-007/009):** auth-service là **nguồn của claim `tid`** — JWT mang `tid` +
 > `sub` + `role`. `Account` (credential) có `tenant_id`: một email đăng ký độc lập ở mỗi tenant.
 > `platform_admin` là account **không** có `tenant_id` (token không `tid`). RPC `AttachTenant`
