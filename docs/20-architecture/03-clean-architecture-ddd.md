@@ -70,6 +70,10 @@ domain/model/order.go
   func (o *Order) Confirm() (event.OrderConfirmed, error)   // enforce: chỉ từ pending_payment
   func (o *Order) Cancel(reason string) (event.OrderCancelled, error) // enforce: chưa packing
   → Không import pgx, không import net/http, không gọi time.Now() trực tiếp (nhận qua tham số).
+  → Ngoại lệ duy nhất cho lõi (ADR-013, chỉ TypeScript): `date-fns` (mọi phép tính/so sánh thời
+    gian; thời điểm vẫn là `Date` thuần) và `uuid` (`v7`) — thuần, không I/O, không đọc config,
+    không thêm kiểu riêng nào phải chuyển đổi ở biên. `Clock` vẫn là port. Go dùng `time` +
+    `github.com/google/uuid` của stdlib/hệ sinh thái nên không cần ngoại lệ.
 
 domain/port/order_repository.go
   type OrderRepository interface {
@@ -184,8 +188,14 @@ giá trị (`Money{amount, currency}` không có `id`).
 Trong 5 service NestJS, chỉ **3 service này** áp CQRS/ES/Saga. **`auth-service` và `user-service`
 dùng NestJS nhưng CRUD + repository thường** (ADR-011) — chọn NestJS vì hệ sinh thái
 (`@nestjs/passport`, guard, `class-validator`), không phải vì cần event store hay process
-manager. `@nestjs/cqrs` ở hai service này (nếu dùng) chỉ để tách command/query, không có event
-store.
+manager. Hai service này **không** cài `@nestjs/cqrs`, không có command bus/event store.
+
+> **Đặt tên (quan trọng để không nhầm với CQRS):** service CRUD thường đặt use case ở
+> `application/use-case/<verb-noun>.use-case.ts` — `class <VerbNoun>UseCase { execute(input) }`,
+> controller gọi thẳng. Input/output ở `application/dto/<verb-noun>.io.ts` (`<VerbNoun>Input` /
+> `<VerbNoun>Result`). **Không** dùng `application/command/`, `*.handler.ts`, hay `*Command` —
+> đó là từ vựng của CQRS (`command bus`, `@CommandHandler`), chỉ dùng ở 3 service phía dưới.
+> `auth-service` là mẫu tham chiếu.
 
 `order-service` cần: (a) **audit trail
 đầy đủ** mọi thay đổi trạng thái đơn (event store), (b) **command và query khác nhu cầu mở
